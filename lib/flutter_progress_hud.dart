@@ -16,7 +16,8 @@ class ProgressHUD extends StatefulWidget {
   final EdgeInsetsGeometry padding;
 
   ProgressHUD(
-      {required this.child,
+      {Key? key,
+      required this.child,
       this.indicatorColor = Colors.white,
       this.indicatorWidget,
       this.backgroundColor = Colors.black54,
@@ -26,29 +27,18 @@ class ProgressHUD extends StatefulWidget {
       this.barrierEnabled = true,
       this.barrierColor = Colors.black12,
       this.textStyle = const TextStyle(color: Colors.white, fontSize: 14.0),
-      this.padding = const EdgeInsets.all(16.0)});
+      this.padding = const EdgeInsets.all(16.0)})
+      : super(key: key);
 
-  static _ProgressHUDState? of(BuildContext context) {
-    final progressHudState = context.findAncestorStateOfType<_ProgressHUDState>();
-
-    assert(() {
-      if (progressHudState == null) {
-        throw FlutterError(
-            'ProgressHUD operation requested with a context that does not include a ProgressHUD.\n'
-            'The context used to show ProgressHUD must be that of a widget '
-            'that is a descendant of a ProgressHUD widget.');
-      }
-      return true;
-    }());
-
-    return progressHudState;
+  static ProgressHUDState? of(BuildContext context) {
+    return context.findAncestorStateOfType<ProgressHUDState>();
   }
 
   @override
-  _ProgressHUDState createState() => _ProgressHUDState();
+  ProgressHUDState createState() => ProgressHUDState();
 }
 
-class _ProgressHUDState extends State<ProgressHUD>
+class ProgressHUDState extends State<ProgressHUD>
     with SingleTickerProviderStateMixin {
   bool _isShow = false;
   bool _barrierVisible = false;
